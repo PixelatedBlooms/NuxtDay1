@@ -2,9 +2,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxtjs/tailwindcss", "@vite-pwa/nuxt"],
-  css: [
-    '~/assets/css/tailwind.css'
-  ],
+  tailwindcss: {
+    cssPath: '~/assets/css/tailwind.css',
+    configPath: '~/tailwind.config.js',
+    injectPosition: "first"
+  },
   
   pwa: {
     manifest: {
