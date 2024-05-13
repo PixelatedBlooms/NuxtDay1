@@ -1,10 +1,34 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 const props = defineProps({
   product: {
     type: Object,
     default: {}
   }
 })
+
+const productInCart = ref(false);
+
+const addCart = () => {
+  productInCart.value = !productInCart.value;
+  let localStorageData = localStorage.getItem("products");
+  let productOfCart = [];
+
+  if (localStorageData) {
+    productOfCart = JSON.parse(localStorageData);
+  }
+
+  if (productInCart.value) {
+    productOfCart.push(props.product);
+    localStorage.setItem("products", JSON.stringify(productOfCart));
+  } else {
+    productOfCart = productOfCart.filter(
+      (item: { id: number }) => item.id !== props.product.id
+    );
+    localStorage.setItem("products", JSON.stringify(productOfCart));
+  }
+};
 </script>
 <template>
 <section class="py-10">
@@ -23,7 +47,7 @@ const props = defineProps({
         <h3 class="text-4xl font-light mb-3">${{ props.product.price }}</h3>
         <p class="mb-10">{{ props.product.description }}</p>
         <div class="flex flex-col gap-4">
-          <div class="w-full flex items-center gap-2 bg-blue-600 text-white py-3 justify-center rounded-lg cursor-pointer hover:bg-blue-700 transition duration-300 relative">
+          <div @click="addCart" class="w-full flex items-center gap-2 bg-blue-600 text-white py-3 justify-center rounded-lg cursor-pointer hover:bg-blue-700 transition duration-300 relative">
             <i class="ri-shopping-cart-2-line"></i>
             <span>Add to Cart</span>
           </div>

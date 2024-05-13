@@ -16,7 +16,7 @@ const allProducts = computed(() => {
 			<div class="py-10">
 				<div class="mb-6 flex justify-end gap-6">
 					<Dropdown @selected-category="selectedCategory = $event" />
-					<NuxtLink to="/category/create" class="bg-orange-500 text-white flex justify-center items-center px-3 py-2 rounded-full">Create Category</NuxtLink>
+					<NuxtLink to="/category/create" class="bg-blue-500 text-white flex justify-center items-center px-3 py-2 rounded-full">Create Category</NuxtLink>
 				</div>
 				<div class="flex gap-6 flex-wrap mx-auto">
 					<template v-for="(item, index) in allProducts" :key="index">
